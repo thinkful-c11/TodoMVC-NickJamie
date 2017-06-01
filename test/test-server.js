@@ -142,7 +142,7 @@ describe('TodoMVC API:', () => {
       /**
        * This requires you to wire-up the GET /api/items endpoint to knex and postgres
        */
-      it.only('should respond with the items in the database', function () {
+      it('should respond with the items in the database', function () {
         const newItem = { title: 'Buy soy milk' };
         let itemId;
         return knex('items')
@@ -178,7 +178,6 @@ describe('TodoMVC API:', () => {
           .then(function (result) {
             result.should.have.status(200);
             result.body.should.have.property('id', itemId);
-
           })
           .catch((err) => {
             throw (err);
@@ -231,7 +230,7 @@ describe('TodoMVC API:', () => {
       /**
        * This test requires you to add a URL to the response which has the location of the new item. 
        */
-      it('should respond with a URL which can be used to retrieve the new item', function () {
+      it.only('should respond with a URL which can be used to retrieve the new item', function () {
         const newItem = { title: 'Buy milk' };
         return chai.request(app)
           .post('/api/items')
