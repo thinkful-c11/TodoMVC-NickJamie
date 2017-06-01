@@ -26,6 +26,7 @@ describe('TodoMVC API:', () => {
    * Hint: Use `.only` or `.skip` to focus on a specific `describe` or `it` block
    *  - https://mochajs.org/#exclusive-tests
    */
+
   describe('GET and POST endpoint skeleton:', function () {
     /**
      * This test requires a skeleton GET endpoint which responds with an array
@@ -33,6 +34,7 @@ describe('TodoMVC API:', () => {
      * 
      * Inspect the test for clues to the route, status and correct response
      */
+    
     it('should respond to GET with status 200 and an array', function () {
       return chai.request(app)
         .get('/api/items')
