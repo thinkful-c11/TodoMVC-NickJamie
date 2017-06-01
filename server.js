@@ -32,11 +32,40 @@ const app = express();
 // });
 
 
-app.get('/api/items', (req, res) => {
-  knex.select().from('items').then(results => res.json(results));
+// app.get('/api/items', (req, res) => {
+//   knex.select()
+//     .from('items')
+//     .then(results => res.json(results));
+// });
+
+app.get('/api/items/:id', (req, res) => {
+  knex.select()
+    .from('items')
+    .where('id', req.params.id)
+    .then(results => res.json(results[0]));
 });
 
+// app.post('/api/items', (req, res) => {
+//   const newItem = {title: 'Walk the dog'};
+//   knex.insert(newItem)
+//     .into('items')
+//     .returning('id')
+//     .then(results => {
+//       res.status(201);
+//       res.json({id: results[0]});
+//     });
+// });
 
+app.post('/api/items', (req, res) => {
+  const newItem = {title: 'Buy milk'};
+  knex.insert(newItem)
+    .into('items')
+    .returning('id')
+    .then(results => {
+      console.log('LOOK', `HTTP${results[0]}`);
+      res.json({url: `http://api/items/${results[0]}`});
+    });
+});
 
 let server;
 let knex;
