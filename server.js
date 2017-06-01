@@ -4,10 +4,10 @@ const express = require('express');
 const { DATABASE, PORT } = require('./config');
 
 const app = express();
-// const bodyParser = require('body-parser');
-// const jsonParser = bodyParser.json();
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 // app.use(function (req, res, next) {
 //   res.header('Access-Control-Allow-Origin', '*');
@@ -38,40 +38,42 @@ const app = express();
 //     .then(results => res.json(results));
 // });
 
-app.get('/api/items/:id', (req, res) => {
-  knex.select()
-    .from('items')
-    .where('id', req.params.id)
-    .then(results => res.json(results[0]));
-});
+// app.get('/api/items/:id', (req, res) => {
+//   knex.select()
+//     .from('items')
+//     .where('id', req.params.id)
+//     .then(results => res.json(results[0]));
 
 // app.post('/api/items', (req, res) => {
-//   const newItem = {title: 'Walk the dog'};
+//   const newItem = { title: 'Walk the dog' };
 //   knex.insert(newItem)
-//     .into('items')
-//     .returning('id')
-//     .then(results => {
-//       res.status(201);
-//       res.json({id: results[0]});
-//     });
+//   .into('items')
+//   .returning('id')
+//   .then(results => {
+//     res.status(201);
+//     res.json({id: results[0]})
+//   });
 // });
 
-app.post('/api/items', (req, res) => {
-  const newItem = {title: 'Buy milk'};
+app.post('/api/items', (req,res) => {
+  const newItem = { title: 'Buy milk' };
   knex.insert(newItem)
-    .into('items')
-    .returning('id')
-    .then(results => {
-      console.log('LOOK', `HTTP${results[0]}`);
-      res.json({url: `http://api/items/${results[0]}`});
-    });
+  .into('items')
+  .returning('id')
+  .then(results => {
+    console.log('RESULTS HERE', `http${results[0]}`);
+    res.json({url: `http://api/items/?id=${results[0]}`});
+  });
 });
+
+
 
 let server;
 let knex;
 function runServer(database = DATABASE, port = PORT) {
   return new Promise((resolve, reject) => {
     try {
+      console.log(database);
       knex = require('knex')(database);
       server = app.listen(port, () => {
         console.info(`App listening on port ${server.address().port}`);

@@ -178,7 +178,6 @@ describe('TodoMVC API:', () => {
           .then(function (result) {
             result.should.have.status(200);
             result.body.should.have.property('id', itemId);
-
           })
           .catch((err) => {
             throw (err);

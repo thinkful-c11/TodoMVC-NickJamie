@@ -1,8 +1,9 @@
 'use strict';
 
+
 require('dotenv').config();
 const DATABASE_URL = process.env.DATABASE_URL || global.DATABASE_URL || 'postgresql://dev:dev@localhost/todo-app';
-// const DATABASE_URL = process.env.DATABASE_URL || global.DATABASE_URL || 'postgresql://dev:dev@localhost/todo-app';
+// const DATABASE_URL = process.env.DATABASE_URL || global.DATABASE_URL || 'postgresql://dev:dunpealx1@localhost/todo-app';
 
 exports.DATABASE = {
   client: 'pg',
@@ -10,5 +11,6 @@ exports.DATABASE = {
   pool: { min: 0, max: 3 },
   // debug: true
 };
+
 
 exports.PORT = process.env.PORT || 8080; 
