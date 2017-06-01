@@ -26,7 +26,7 @@ describe('TodoMVC API:', () => {
    * Hint: Use `.only` or `.skip` to focus on a specific `describe` or `it` block
    *  - https://mochajs.org/#exclusive-tests
    */
-  describe.only('GET and POST endpoint skeleton:', function () {
+  describe('GET and POST endpoint skeleton:', function () {
     /**
      * This test requires a skeleton GET endpoint which responds with an array
      * and a status of 200 "OK"
@@ -142,7 +142,7 @@ describe('TodoMVC API:', () => {
       /**
        * This requires you to wire-up the GET /api/items endpoint to knex and postgres
        */
-      it('should respond with the items in the database', function () {
+      it.only('should respond with the items in the database', function () {
         const newItem = { title: 'Buy soy milk' };
         let itemId;
         return knex('items')
@@ -196,6 +196,9 @@ describe('TodoMVC API:', () => {
         return chai.request(app)
           .post('/api/items')
           .send(newItem)
+          .then(function (result) {
+            result.should.not.have.status(201);
+          })
           .catch((err) => {
             err.should.have.status(400);
           });
