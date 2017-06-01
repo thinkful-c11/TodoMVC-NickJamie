@@ -33,7 +33,7 @@ describe('TodoMVC API:', () => {
      * 
      * Inspect the test for clues to the route, status and correct response
      */
-    it.only('should respond to GET with status 200 and an array', function () {
+    it('should respond to GET with status 200 and an array', function () {
       return chai.request(app)
         .get('/api/items')
         .then(function (result) {
@@ -54,7 +54,7 @@ describe('TodoMVC API:', () => {
      *  - https://enable-cors.org/server_expressjs.html
      *  The hint is not the *complete* solution, you will need to expand on it
      */
-    it('should respond with CORS headers', function () {
+    it.only('should respond with CORS headers', function () {
       return chai.request(app)
         .get('/api/items')
         .then(function (result) {
