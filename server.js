@@ -42,10 +42,6 @@ app.use(function (req, res, next) {
 app.get('/api/items', (req, res) => {
   knex.select()
     .from('items')
-<<<<<<< HEAD
-    .then(results => res.json(results));
-});
-=======
     .then(results => {
       results.forEach((el) => {
         el.url = `${req.protocol}://${req.get('host')}/api/items/${el.id}`;
@@ -54,87 +50,19 @@ app.get('/api/items', (req, res) => {
     });
 });
 
->>>>>>> 008b87542d8ba7d8660f2920db691f2a82162dbf
+
 
 app.get('/api/items/:id', (req, res) => {
   knex.select()
     .from('items')
     .where('id', req.params.id)
-<<<<<<< HEAD
-    .then(results => res.json(results[0]));
-
-=======
     .then(results => {
       console.log('this is get response of id', results);
       res.json(results[0]);
     });
->>>>>>> 008b87542d8ba7d8660f2920db691f2a82162dbf
 });
 
-// app.post('/api/items', (req, res) => {
-//   const newItem = { title: 'Walk the dog' };
-//   knex.insert(newItem)
-//   .into('items')
-//   .returning('id')
-//   .then(results => {
-//     res.status(201);
-//     res.json({id: results[0]});
-//   });
-// });
 
-// app.post('/api/items', (req,res) => {
-//   const newItem = { title: 'Buy milk' };
-//   knex.insert(newItem)
-//   .into('items')
-//   .returning('id')
-//   .then(results => {
-//     res.status(201);
-//     //console.log('RESULTS HERE', `http${results[0]}`);
-//     res.json({url: `http://api/items${results[0]}`});
-//   });
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-// app.post('/api/items', jsonParser, (req, res) => {
-//   const newItem = { title: 'Buy milk' };
-//   knex.insert(newItem)
-//   .into('items')
-//   .returning(['id'])
-//   .then(results => {
-//     console.log('RESULTS HERE', `http://api/items/?id=${results[0]}`);
-//     const item = results[0];
-//     item.url = `${res.root}${results[0].id}`;
-//     res.status(201).location(item.url).json(item);
-//     // res.json({url: `http://api/items/${results[0]}`});
-//   });
-// });
-
-// app.post('/api/items', (req, res) => {
-//   if (!req.body.title) {
-//     return res.status(400).send('Missing title in body request.');
-//   }
-//   knex
-//     .insert({title: req.body.title})
-//     .into('items')
-//     .returning(['id'])
-//     .then(result => {
-//       const URL = `${req.protocol}://${req.get('host')}/api/items/${result[0].id}`;
-//       res.status(201);
-//       res.location(URL);
-//       res.json(Object.assign({}, { url: URL } )); 
-//     });
-// });
 
 app.post('/api/items', (req, res) => {
   if (!req.body.title) {
@@ -150,6 +78,18 @@ app.post('/api/items', (req, res) => {
       res.location(URL);
       res.json(Object.assign({}, result[0], { url: URL } )); 
     });
+});
+
+
+
+app.put('/api/items/:itemId', (req, res) => {
+  knex('items').where('id', req.params.itemId).update(req.body).then(results => {
+    console.log('FIRST RESULTS HERE', results);
+    return knex('items').where('id', req.params.itemId).select(['id', 'title', 'completed']);
+  }).then(results => {
+    console.log('SECOND RESULTS HERE', results);
+    res.status(200).send(results[0]);
+  });
 });
 
 
