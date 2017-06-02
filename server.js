@@ -24,21 +24,6 @@ app.use(function (req, res, next) {
 });
 
 // Add middleware and .get, .post, .put and .delete endpoints
-// app.get('/', (req, res) => {
-//   res.json({});
-// });
-
-// app.get('/api/items', (req, res) => {
-//   res.json([]);
-// });
-
-// app.post('/api/items', function (req, res) {
-//   const newItem = {title: 'Walk the dog'};
-//   res.header('location', '/api/items');
-//   res.status(201).json(newItem);
-// });
-
-
 app.get('/api/items', (req, res) => {
   knex.select()
     .from('items')
@@ -51,7 +36,6 @@ app.get('/api/items', (req, res) => {
 });
 
 
-
 app.get('/api/items/:id', (req, res) => {
   knex.select()
     .from('items')
@@ -62,10 +46,6 @@ app.get('/api/items/:id', (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 066e3ae54e73d232eb9979464a3e20b87bb2f6ef
 
 app.post('/api/items', (req, res) => {
   if (!req.body.title) {
@@ -82,20 +62,6 @@ app.post('/api/items', (req, res) => {
       res.json(Object.assign({}, result[0], {url: URL})); 
     });
 });
-
-
-app.put('/api/items/:itemID', (req, res) => {
-  knex('items')
-    .where('id', req.params.itemId)
-    .update(req.body)
-    .then(results => {
-      console.log('first put test', results);
-      return knex('items').where('id', req.params.itemID).select(['id', 'title', 'completed']);
-    }).then(results => {
-      res.status(200).send(results[0]);
-    });
-});
-
 
 
 app.put('/api/items/:itemId', (req, res) => {

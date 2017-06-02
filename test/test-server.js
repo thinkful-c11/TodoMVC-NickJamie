@@ -27,7 +27,7 @@ describe('TodoMVC API:', () => {
    *  - https://mochajs.org/#exclusive-tests
    */
 
-  describe.skip('GET and POST endpoint skeleton:', function () {
+  describe('GET and POST endpoint skeleton:', function () {
     /**
      * This test requires a skeleton GET endpoint which responds with an array
      * and a status of 200 "OK"
@@ -80,7 +80,7 @@ describe('TodoMVC API:', () => {
     it('should respond to POST with an object a status 201 and a location header', function () {
       return chai.request(app)
         .post('/api/items')
-        .send({})
+        .send({title: 'this is the worst'})
         .then(function (result) {
           result.should.have.status(201);
           result.should.have.header('location');
@@ -401,7 +401,7 @@ describe('TodoMVC API:', () => {
       });
     });
 
-    describe.only('DELETE endpoint', function () {
+    describe('DELETE endpoint', function () {
       /**
        * This test requires you to wire-up the delete endpoint so items can be deleted.
        */
