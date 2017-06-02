@@ -332,7 +332,6 @@ describe('TodoMVC API:', () => {
             return chai.request(root).get(path);
           })
           .then(function (result) {
-
             result.body.should.have.property('title', newItem.title);
           })
           .catch((err) => {
@@ -342,7 +341,7 @@ describe('TodoMVC API:', () => {
 
     });
 
-    describe.skip('PUT endpoint', function () {
+    describe('PUT endpoint', function () {
       /**
        * This test requires you to wireup the database to the PUT endpoint so the title can be changed
        */
