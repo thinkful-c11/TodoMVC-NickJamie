@@ -54,8 +54,9 @@ app.post('/api/items', (req,res) => {
   .into('items')
   .returning('id')
   .then(results => {
-    console.log('RESULTS HERE', `http${results[0]}`);
-    res.json({url: `http://api/items/?id=${results[0]}`});
+    res.status(201);
+    //console.log('RESULTS HERE', `http${results[0]}`);
+    res.json({url: `http://api/items${results[0]}`});
   });
 });
 
