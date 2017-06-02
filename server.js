@@ -39,17 +39,19 @@ app.use(bodyParser.json());
 // });
 
 
-// app.get('/api/items', (req, res) => {
-//   knex.select()
-//     .from('items')
-//     .then(results => res.json(results));
-// });
+app.get('/api/items', (req, res) => {
+  knex.select()
+    .from('items')
+    .then(results => res.json(results));
+});
 
-// app.get('/api/items/:id', (req, res) => {
-//   knex.select()
-//     .from('items')
-//     .where('id', req.params.id)
-//     .then(results => res.json(results[0]));
+app.get('/api/items/:id', (req, res) => {
+  knex.select()
+    .from('items')
+    .where('id', req.params.id)
+    .then(results => res.json(results[0]));
+
+});
 
 // app.post('/api/items', (req, res) => {
 //   const newItem = { title: 'Walk the dog' };
@@ -62,18 +64,17 @@ app.use(bodyParser.json());
 //   });
 // });
 
-<<<<<<< HEAD
-app.post('/api/items', (req,res) => {
-  const newItem = { title: 'Buy milk' };
-  knex.insert(newItem)
-  .into('items')
-  .returning('id')
-  .then(results => {
-    res.status(201);
-    //console.log('RESULTS HERE', `http${results[0]}`);
-    res.json({url: `http://api/items${results[0]}`});
-  });
-});
+// app.post('/api/items', (req,res) => {
+//   const newItem = { title: 'Buy milk' };
+//   knex.insert(newItem)
+//   .into('items')
+//   .returning('id')
+//   .then(results => {
+//     res.status(201);
+//     //console.log('RESULTS HERE', `http${results[0]}`);
+//     res.json({url: `http://api/items${results[0]}`});
+//   });
+// });
 
 
 
@@ -87,7 +88,6 @@ app.post('/api/items', (req,res) => {
 
 
 
-=======
 // app.post('/api/items', jsonParser, (req, res) => {
 //   const newItem = { title: 'Buy milk' };
 //   knex.insert(newItem)
@@ -101,7 +101,6 @@ app.post('/api/items', (req,res) => {
 //     // res.json({url: `http://api/items/${results[0]}`});
 //   });
 // });
->>>>>>> c69dba0c2055606d66661a1cd772d54f44215177
 
 // app.post('/api/items', (req, res) => {
 //   if (!req.body.title) {
@@ -178,4 +177,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { app, runServer, closeServer };
+module.exports = { app, runServer, closeServer }; 
