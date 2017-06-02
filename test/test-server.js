@@ -131,6 +131,14 @@ describe('TodoMVC API:', () => {
   // NOTE: This describe block wraps sub-blocks and tests
   describe('With database:', function () {
 
+    beforeEach(() => {
+      return knex('items')
+      .del()
+      .catch((err) => {
+        console.error('ERROR', err.message);
+      });
+    });
+
     // afterEach test, delete the test items in the table
     afterEach(() => {
       return knex('items')
@@ -238,16 +246,13 @@ describe('TodoMVC API:', () => {
           .post('/api/items')
           .send(newItem)
           .then(function (result) {
-            console.log(result.body);
             const url = result.body.url;
             const split = url.lastIndexOf('/');
             const root = url.slice(0, split);
             const path = url.substr(split);
-            console.log(root,path);
             return chai.request(root).get(path);
           })
           .then(function (result) {
-            console.log('hi i am here',result);
             result.body.should.have.property('title', newItem.title);
           })
           .catch((err) => {
@@ -292,13 +297,14 @@ describe('TodoMVC API:', () => {
           .post('/api/items')
           .send(newItem)
           .then(function (result) {
+            
             result.should.have.header('location');
             result.body.should.have.property('url').is.a('string');
             const url = result.get('location');
+            console.log('this should be a url header', url);
             const split = url.lastIndexOf('/');
             const root = url.slice(0, split);
             const path = url.substr(split);
-
             return chai.request(root).get(path);
           })
           .then(function (result) {
@@ -327,6 +333,7 @@ describe('TodoMVC API:', () => {
             return chai.request(root).get(path);
           })
           .then(function (result) {
+
             result.body.should.have.property('title', newItem.title);
           })
           .catch((err) => {
