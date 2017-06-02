@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: YSRzbI9WIOJwUp6yvpqHdbuEJcMj+nQ11Glt3Fr/i48gDluduQf5JXmxYY95gMaaIqR8CTkmn02CnGD3xPfVu2Apu2VA4D46Q2f62CsAh3JzHnLvSkt33UqLQJ+sygmsVQSYp3dclJROyefnwL2YqGgx8SS4/6Hn110BJpD14UaH1kASOKrKrYMgRqliQu7L53HRsflWVyOzlWR3b2mpKsMYrZiK0+EgfMBWyaF0fW1dmy9uKMsmttqS7jnofLBdHq9FnvZnxPWy4VPUIXxdhTm/E9GDVd9ZS5zCLOU4cuYPXck/zaEOmYASl9YxcDHLrAl9FWQCSrQGFZh3dIJudBEi+C42OBcBGfRQk6sGMWg/yTQ4myZgdDVKOia4yA5noTDn/dt3yIdldKVLJ2tUehrettbciqMdFCjhMjF5GCw4P4jaVM6diMo0fNQyryQ1yaQEBWiX1VGNdzQJWjamIFlEuBX5L7ZB+84ZfEbcoVnU6TtblCaO9B91j4VSjomuV2FQdO4vA8IXfUkRO9L6pr+GxTr0V6q2E8plCqxaP7ResmwAy8OifnPr4FFvPI5sCufIxnmcR3cJ4BnLqME/0UuLacyZoDsAD/+ghyJ1KArn+lS0rs+dmeBLdpdN7WWte/TqGRyZHVz2kA98/8Fa3zBb/HRsK3ebQ7Tlk3fU+U0=
+  app: arcane-basin-93333
+  on:
+    repo: thinkful-c11/TodoMVC-NickJamie
