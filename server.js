@@ -109,6 +109,15 @@ app.put('/api/items/:itemId', (req, res) => {
 });
 
 
+app.delete('/api/items/:itemId', (req, res) => {
+  knex('items').where('id', req.params.itemId).del(req.body).then(results => {
+    return knex('items').where('id', req.params.itemId).select(['id', 'title']);
+  }).then(results => {
+    res.send(results[0]);
+  });
+});
+
+
 
 let server;
 let knex;
