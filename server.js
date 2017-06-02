@@ -65,7 +65,7 @@ app.post('/api/items', (req, res) => {
 
 
 app.put('/api/items/:itemId', (req, res) => {
-  knex('items').where('id', req.params.itemId).update(req.body).then(results => {
+  knex('items').where('id', req.params.itemId).update({completed: req.body.completed, title: req.body.title}).then(results => {
     console.log('FIRST RESULTS HERE', results);
     return knex('items').where('id', req.params.itemId).select(['id', 'title', 'completed']);
   }).then(results => {
