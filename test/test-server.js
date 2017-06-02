@@ -26,13 +26,15 @@ describe('TodoMVC API:', () => {
    * Hint: Use `.only` or `.skip` to focus on a specific `describe` or `it` block
    *  - https://mochajs.org/#exclusive-tests
    */
-  describe('GET and POST endpoint skeleton:', function () {
+
+  describe.skip('GET and POST endpoint skeleton:', function () {
     /**
      * This test requires a skeleton GET endpoint which responds with an array
      * and a status of 200 "OK"
      * 
      * Inspect the test for clues to the route, status and correct response
      */
+    
     it('should respond to GET with status 200 and an array', function () {
       return chai.request(app)
         .get('/api/items')
@@ -138,7 +140,7 @@ describe('TodoMVC API:', () => {
         });
     });
 
-    describe('GET endpoints', function () {
+    describe.skip('GET endpoints', function () {
       /**
        * This requires you to wire-up the GET /api/items endpoint to knex and postgres
        */
@@ -230,19 +232,22 @@ describe('TodoMVC API:', () => {
       /**
        * This test requires you to add a URL to the response which has the location of the new item. 
        */
-      it.only('should respond with a URL which can be used to retrieve the new item', function () {
+      it('should respond with a URL which can be used to retrieve the new item', function () {
         const newItem = { title: 'Buy milk' };
         return chai.request(app)
           .post('/api/items')
           .send(newItem)
           .then(function (result) {
+            console.log(result.body);
             const url = result.body.url;
             const split = url.lastIndexOf('/');
             const root = url.slice(0, split);
             const path = url.substr(split);
+            console.log(root,path);
             return chai.request(root).get(path);
           })
           .then(function (result) {
+            console.log('hi i am here',result);
             result.body.should.have.property('title', newItem.title);
           })
           .catch((err) => {
@@ -331,7 +336,7 @@ describe('TodoMVC API:', () => {
 
     });
 
-    describe('PUT endpoint', function () {
+    describe.skip('PUT endpoint', function () {
       /**
        * This test requires you to wireup the database to the PUT endpoint so the title can be changed
        */
@@ -391,7 +396,7 @@ describe('TodoMVC API:', () => {
       });
     });
 
-    describe('DELETE endpoint', function () {
+    describe.skip('DELETE endpoint', function () {
       /**
        * This test requires you to wire-up the delete endpoint so items can be deleted.
        */
