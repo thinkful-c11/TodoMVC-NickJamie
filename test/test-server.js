@@ -401,7 +401,7 @@ describe('TodoMVC API:', () => {
       });
     });
 
-    describe.skip('DELETE endpoint', function () {
+    describe.only('DELETE endpoint', function () {
       /**
        * This test requires you to wire-up the delete endpoint so items can be deleted.
        */
