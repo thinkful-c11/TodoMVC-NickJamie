@@ -148,7 +148,7 @@ describe('TodoMVC API:', () => {
         });
     });
 
-    describe.skip('GET endpoints', function () {
+    describe('GET endpoints', function () {
       /**
        * This requires you to wire-up the GET /api/items endpoint to knex and postgres
        */
@@ -301,7 +301,6 @@ describe('TodoMVC API:', () => {
             result.should.have.header('location');
             result.body.should.have.property('url').is.a('string');
             const url = result.get('location');
-            console.log('this should be a url header', url);
             const split = url.lastIndexOf('/');
             const root = url.slice(0, split);
             const path = url.substr(split);
