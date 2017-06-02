@@ -9,12 +9,12 @@ const jsonParser = bodyParser.json();
 
 app.use(bodyParser.json());
 
-function rootPath(req, res, next) {
-  res.root = `${req.protocol}://${req.get('host')}/api/items/`;
-  next();
-}
+// function rootPath(req, res, next) {
+//   res.root = `${req.protocol}://${req.get('host')}/api/items/`;
+//   next();
+// }
 
-app.use(rootPath);
+// app.use(rootPath);
 
 // app.use(function (req, res, next) {
 //   res.header('Access-Control-Allow-Origin', '*');
@@ -76,19 +76,36 @@ app.use(rootPath);
 //   });
 // });
 
+// app.post('/api/items', (req, res) => {
+//   if (!req.body.title) {
+//     return res.status(400).send('Missing title in body request.');
+//   }
+//   knex
+//     .insert({title: req.body.title})
+//     .into('items')
+//     .returning(['id'])
+//     .then(result => {
+//       const URL = `${req.protocol}://${req.get('host')}/api/items/${result[0].id}`;
+//       res.status(201);
+//       res.location(URL);
+//       res.json(Object.assign({}, { url: URL } )); 
+//     });
+// });
+
 app.post('/api/items', (req, res) => {
   if (!req.body.title) {
-    return res.status(400).send('Missing title in body request.');
+    return res.status(400).send(`Missing title in body request.`);
   }
+  console.log('This sucks so much');
   knex
     .insert({title: req.body.title})
     .into('items')
-    .returning(['id'])
+    .returning(['id', 'title'])
     .then(result => {
-      const URL = `${req.protocol}://${req.get('host')}/api/items/${result[0].id}`;
+      const URL = `${req.protocol}://${req.hostname}:${PORT}/api/items/${result[0].id}`;
       res.status(201);
       res.location(URL);
-      res.json(Object.assign({}, { url: URL } )); 
+      res.json(Object.assign({}, result[0], { url: URL } )); 
     });
 });
 
