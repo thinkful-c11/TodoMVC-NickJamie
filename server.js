@@ -16,12 +16,12 @@ app.use(bodyParser.json());
 
 // app.use(rootPath);
 
-// app.use(function (req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
-//   next();
-// });
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+  next();
+});
 
 // Add middleware and .get, .post, .put and .delete endpoints
 // app.get('/', (req, res) => {
@@ -42,15 +42,33 @@ app.use(bodyParser.json());
 app.get('/api/items', (req, res) => {
   knex.select()
     .from('items')
+<<<<<<< HEAD
     .then(results => res.json(results));
 });
+=======
+    .then(results => {
+      results.forEach((el) => {
+        el.url = `${req.protocol}://${req.get('host')}/api/items/${el.id}`;
+      });
+      res.json(results);
+    });
+});
+
+>>>>>>> 008b87542d8ba7d8660f2920db691f2a82162dbf
 
 app.get('/api/items/:id', (req, res) => {
   knex.select()
     .from('items')
     .where('id', req.params.id)
+<<<<<<< HEAD
     .then(results => res.json(results[0]));
 
+=======
+    .then(results => {
+      console.log('this is get response of id', results);
+      res.json(results[0]);
+    });
+>>>>>>> 008b87542d8ba7d8660f2920db691f2a82162dbf
 });
 
 // app.post('/api/items', (req, res) => {
@@ -120,15 +138,14 @@ app.get('/api/items/:id', (req, res) => {
 
 app.post('/api/items', (req, res) => {
   if (!req.body.title) {
-    return res.status(400).send(`Missing title in body request.`);
+    return res.status(400).send('Missing title in body request.');
   }
-  console.log('This sucks so much');
   knex
     .insert({title: req.body.title})
     .into('items')
-    .returning(['id', 'title'])
+    .returning(['id', 'title', 'completed'])
     .then(result => {
-      const URL = `${req.protocol}://${req.hostname}:${PORT}/api/items/${result[0].id}`;
+      const URL = `${req.protocol}://${req.get('host')}/api/items/${result[0].id}`;
       res.status(201);
       res.location(URL);
       res.json(Object.assign({}, result[0], { url: URL } )); 
